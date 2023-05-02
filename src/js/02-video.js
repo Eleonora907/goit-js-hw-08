@@ -8,13 +8,12 @@ const player = new Player(iframe);
 player.on('timeupdate', throttle(reloadPlay, 1000));
 
 function reloadPlay(ev) {
-  currentSeconds = ev.seconds;
-  localStorage.setItem('videoplayer-current-time', currentSeconds);
+  localStorage.setItem('videoplayer-current-time', ev.seconds);
 }
 
 try {
-    const savedTime = Number(localStorage.getItem('videoplayer-current-time')) || 0;
-    player.setCurrentTime(savedTime)
+    const savedTime = +localStorage.getItem('videoplayer-current-time') || 0;
+player.setCurrentTime(savedTime);
 } catch (e) {
     console.error(`Error setting current time: ${e.message}`);
 }
